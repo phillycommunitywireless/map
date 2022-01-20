@@ -4,10 +4,11 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import './App.css';
 
 function App() {
-  const position: LatLngTuple = [51.505, -0.09];
+  // Center of Norris Square Park
+  const position: LatLngTuple = [39.98265, -75.1347];
 
   return (
-    <MapContainer center={position} zoom={13} scrollWheelZoom={false}>
+    <MapContainer center={position} zoom={16.5} scrollWheelZoom={true}>
       <TileLayer
         url="https://{s}.tile.osm.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
