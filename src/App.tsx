@@ -8,8 +8,8 @@ function App() {
   const center: LatLngTuple = [39.98265, -75.1347];
 
   const mapboxToken: string|undefined = process.env.REACT_APP_MAPBOX_TOKEN;
-  const mapboxUsername: string|undefined = process.env.REACT_APP_MAPBOX_USERNAME;
-  const mapboxStyle: string|undefined = process.env.REACT_APP_MAPBOX_STYLE;
+  const mapboxUsername: string|undefined = process.env.REACT_APP_MAPBOX_USERNAME || "mapbox";
+  const mapboxStyle: string|undefined = process.env.REACT_APP_MAPBOX_STYLE || "streets-v11";
 
   return (
     <MapContainer center={center} zoom={16.5} scrollWheelZoom={true}>
