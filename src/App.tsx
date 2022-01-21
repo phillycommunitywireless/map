@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { LatLngTuple } from 'leaflet';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import './App.css';
-import { reduceEachTrailingCommentRange } from 'typescript';
 
 function App () {
 
@@ -19,12 +18,11 @@ function App () {
     googleSheetName: process.env.REACT_APP_GOOGLE_SHEET_NAME,
   }
 
-  // Center of Norris Square Park
-  const center: LatLngTuple = [39.98265, -75.1347];
-  
   const [markerPositions, setMarkerPositions]: any[] = useState([])
   
+  // Fetch data on component mount
   useEffect(() => {
+    // Async IIFE to allow await syntax
     (async () => {
       try {
         const res = await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${env.googleSpreadsheetID}/values/${env.googleSheetName}!A:B?key=${env.googleKey}`);
@@ -38,18 +36,28 @@ function App () {
     })();
   }, []);
 
+  // Center of Norris Square Park
+  const mapCenter: LatLngTuple = [39.98265, -75.1347];
+
   return (
-    <MapContainer center={center} zoom={16.5} scrollWheelZoom={true}>
-      <TileLayer
-        url={`https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}`}
-        attribution='Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery &copy; <a href="https://www.mapbox.com/">Mapbox</a>'
-        maxZoom={18}
-        id={`${env.mapboxUsername}/${env.mapboxStyle}`}
-        tileSize={512}
-        zoomOffset={-1}
-        accessToken={env.mapboxToken}
-      />
-      {
+    <MapContainer center={mapCenter} zoom={16.5} scrollWheelZoom={true}>
+      { // Use Mapbox if a token is found in .env, otherwise use OpenStreetMap
+        !!env.mapboxToken
+        ? <TileLayer
+            url="https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}"
+            attribution='Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery &copy; <a href="https://www.mapbox.com/">Mapbox</a>'
+            maxZoom={18}
+            id={`${env.mapboxUsername}/${env.mapboxStyle}`}
+            tileSize={512}
+            zoomOffset={-1}
+            accessToken={env.mapboxToken}
+          />
+        : <TileLayer
+            url="https://{s}.tile.osm.org/{z}/{x}/{y}.png"
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          />
+      }
+      { // Loop through markers fetched from the spreadsheet
         markerPositions.map((pos: LatLngTuple, i: number) => (
           <Marker key={i} position={pos}>
             <Popup>
@@ -58,7 +66,6 @@ function App () {
           </Marker>
         ))
       }
-      
     </MapContainer>
   );
 }
