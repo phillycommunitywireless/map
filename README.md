@@ -20,7 +20,7 @@ docker-compose down
 
 ## Google Sheets API
 
-This demo currently calls the Google Sheets API using an API key, which allows reading publicly viewable sheets but not private ones. In the future we'll want to run this part server-side.
+This demo currently calls the Google Sheets API using an [API key](https://support.google.com/googleapi/answer/6158862?hl=en), which allows reading publicly viewable sheets but not private ones. In the future we'll want to run this part server-side.
 
 Create a `.env` file at the root of your project and add these contents:
 
