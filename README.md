@@ -2,18 +2,21 @@
 
 This project uses [Leaflet](https://leafletjs.com/) and [react-leaflet](https://react-leaflet.js.org/) to render a map of our communtiy network.
 
-## Running the development server
+## Running the app
 
-Make sure you have Docker and Docker Compose installed, then run:
-
+Make sure you have Docker and Docker Compose installed, then run
 ```
-docker-compose up
+docker-compose up -d
 ```
 
-Navigate to http://localhost:3000 in your browser to view the app. Changes to local files in the `src` directory should cause the app to automatically reload.
+View the app at http://localhost:3000 in your browser. Changes to local files in `src` should be reflected immediately. 
 
-To stop the server, run
+You'll need to rebuild the app if you change your `.env` or any of your Docker config:
+```
+docker-compose up --build -d
+```
 
+To kill the server, run
 ```
 docker-compose down
 ```
