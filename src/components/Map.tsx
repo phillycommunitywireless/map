@@ -5,7 +5,6 @@ import { LatLngTuple } from 'leaflet';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 
 import './Map.css';
-//import './leaflet.css';
 
 function Map (): JSX.Element {
 
@@ -13,8 +12,8 @@ function Map (): JSX.Element {
   const env: { [varName: string]: string|undefined } = {
     // Mapbox API
     mapboxToken: process.env.MAPBOX_TOKEN,
-    mapboxUsername: process.env.MAPBOX_USERNAME || "mapbox",
-    mapboxStyle: process.env.MAPBOX_STYLE || "streets-v11",
+    mapboxUsername: process.env.MAPBOX_USERNAME ?? "mapbox",
+    mapboxStyle: process.env.MAPBOX_STYLE ?? "streets-v11",
   }
   
   const data = useStaticQuery(graphql`
@@ -45,7 +44,7 @@ function Map (): JSX.Element {
         ? <TileLayer
             url="https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}"
             attribution='Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery &copy; <a href="https://www.mapbox.com/">Mapbox</a>'
-            maxZoom={18}
+            maxZoom={20}
             id={`${env.mapboxUsername}/${env.mapboxStyle}`}
             tileSize={512}
             zoomOffset={-1}
