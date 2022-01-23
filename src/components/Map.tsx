@@ -18,7 +18,7 @@ function Map (): JSX.Element {
   
   const data = useStaticQuery(graphql`
   {
-    allGoogleSpreadsheetSheet1 {
+    allGoogleSpreadsheetCoordinates {
       edges {
         node {
           lat
@@ -30,9 +30,11 @@ function Map (): JSX.Element {
   `)
 
   // Positions of markers
-  const markerPositions: LatLngTuple[] = data.allGoogleSpreadsheetSheet1.edges.map(edge => {
-    return [edge.node.lat, edge.node.long];
-  });
+  const markerPositions: LatLngTuple[] = data.allGoogleSpreadsheetCoordinates.edges.map(edge => {
+    if (edge.node.lat && edge.node.long) {
+      return [edge.node.lat, edge.node.long];
+    }
+  }).filter(tuple => typeof tuple != 'undefined');
 
   // Center of Norris Square Park
   const mapCenter: LatLngTuple = [39.98265, -75.1347];
