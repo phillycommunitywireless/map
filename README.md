@@ -1,55 +1,54 @@
-# PCW Map
+<p align="center">
+  <a href="https://www.gatsbyjs.com/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter">
+    <img alt="Gatsby" src="https://www.gatsbyjs.com/Gatsby-Monogram.svg" width="60" />
+  </a>
+</p>
+<h1 align="center">
+  Gatsby minimal starter
+</h1>
 
-This project uses [Leaflet](https://leafletjs.com/) and [react-leaflet](https://react-leaflet.js.org/) to render a map of our communtiy network.
+## 🚀 Quick start
 
-## Running the app
+1.  **Create a Gatsby site.**
 
-Make sure you have Docker and Docker Compose installed, then run
-```
-docker-compose up -d
-```
+    Use the Gatsby CLI to create a new site, specifying the minimal starter.
 
-View the app at http://localhost:3000 in your browser. Changes to local files in `src` should be reflected immediately. 
+    ```shell
+    # create a new Gatsby site using the minimal starter
+    npm init gatsby
+    ```
 
-You'll need to rebuild the app if you change your `.env` or any of your Docker config:
-```
-docker-compose up --build -d
-```
+2.  **Start developing.**
 
-To kill the server, run
-```
-docker-compose down
-```
+    Navigate into your new site’s directory and start it up.
 
-## Google Sheets API
+    ```shell
+    cd my-gatsby-site/
+    npm run develop
+    ```
 
-This demo currently calls the Google Sheets API using an [API key](https://support.google.com/googleapi/answer/6158862?hl=en), which allows reading publicly viewable sheets but not private ones. In the future we'll want to run this part server-side.
+3.  **Open the code and start customizing!**
 
-Create a `.env` file at the root of your project and add these contents:
+    Your site is now running at http://localhost:8000!
 
-```
-REACT_APP_GOOGLE_KEY=<your Google API key>
-REACT_APP_GOOGLE_SPREADSHEET_ID=<the spreadsheet ID>
-REACT_APP_GOOGLE_SHEET_NAME=Sheet1 (or your sheet name)
-```
+    Edit `src/pages/index.js` to see your site update in real-time!
 
-You can use the ID from [this public spreadsheet](https://docs.google.com/spreadsheets/d/1icwadnhT-_PWiO-RDCoHOnmVrFjRhRDTd0HZNx-JqK8/edit#gid=0) for testing: `1icwadnhT-_PWiO-RDCoHOnmVrFjRhRDTd0HZNx-JqK8`
+4.  **Learn more**
 
-## Mapbox API
+    - [Documentation](https://www.gatsbyjs.com/docs/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
 
-To use Mapbox tiles instead of the default (OpenStreetMap), you'll need to create a [Mapbox account](https://account.mapbox.com/auth/signup/) and generate an [access token](https://docs.mapbox.com/api/accounts/tokens/). The default token that comes with every new account should work. 
+    - [Tutorials](https://www.gatsbyjs.com/tutorial/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
 
-Add the following variable to your `.env`:
+    - [Guides](https://www.gatsbyjs.com/tutorial/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
 
-```
-REACT_APP_MAPBOX_TOKEN=<your token>
-```
+    - [API Reference](https://www.gatsbyjs.com/docs/api-reference/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
 
-### Custom style
+    - [Plugin Library](https://www.gatsbyjs.com/plugins?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
 
-If you want to use a [Mapbox style](https://docs.mapbox.com/studio-manual/reference/styles/) you created in your account, then also add: 
+    - [Cheat Sheet](https://www.gatsbyjs.com/docs/cheat-sheet/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
 
-```
-REACT_APP_MAPBOX_USERNAME=<your username>
-REACT_APP_MAPBOX_STYLE=<your style id>
-```
+## 🚀 Quick start (Gatsby Cloud)
+
+Deploy this starter with one click on [Gatsby Cloud](https://www.gatsbyjs.com/cloud/):
+
+[<img src="https://www.gatsbyjs.com/deploynow.svg" alt="Deploy to Gatsby Cloud">](https://www.gatsbyjs.com/dashboard/deploynow?url=https://github.com/gatsbyjs/gatsby-starter-minimal)
