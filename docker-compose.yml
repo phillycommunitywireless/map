@@ -4,7 +4,6 @@ services:
   app:
     build: .
     environment:
-      - REACT_APP_MAPBOX_TOKEN
       - CHOKIDAR_USEPOLLING=true
     volumes:
       - ./src:/app/src
