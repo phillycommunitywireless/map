@@ -4,4 +4,3 @@ public/
 build/
 .env
 .env.*
-secret.json
