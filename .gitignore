@@ -1,6 +1,7 @@
 node_modules/
 .cache/
-public
+public/
+build/
 .env
 .env.*
 secret.json
