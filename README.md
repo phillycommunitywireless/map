@@ -4,6 +4,11 @@ This project uses [Gatsby](https://www.gatsbyjs.com/) and [React](https://reactj
 
 ## Running the app
 
+First, install project dependencies with 
+```
+npm install
+```
+
 To start the development server, run 
 ```
 npm start
@@ -16,14 +21,18 @@ To build the app into a static site in the `/public` folder, run
 npm run build
 ```
 
-Restart the server in order to re-run any data sourcing queries. 
+Restart the development server in order to re-run any data sourcing queries. 
 
 ## Google Sheets data
 
-We store our geolocation data in a private Google Sheet and use [gatsby-source-google-spreadsheet](https://github.com/sondrele/gatsby-source-google-spreadsheet) to query the Sheets API and load the received data into Gatsby's GraphQL data layer. In order for the API call to work, you need three environment variables set in a `.env` file at the root of the project:
+We store geolocation data in a private Google Sheet and use [gatsby-source-google-spreadsheet](https://github.com/sondrele/gatsby-source-google-spreadsheet) to query the Sheets API at build-time. The received data is loaded into Gatsby's "data layer" and can be queried in React using GraphQL. A GUI interface for exploring the GraphQL layer can be visited on the development server at https://localhost:8000/__graphiql.
+
+### Credentials
+
+In order for this data sourcing to work, you need three environment variables set in a `.env` file at the root of the project:
 
 ```bash
-# .env
+# /.env
 
 GOOGLE_SPREADSHEET_ID=<Google sheet id>
 GOOGLE_PRIVATE_KEY=<Google PGP private key>
