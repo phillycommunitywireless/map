@@ -4,6 +4,7 @@ import { graphql, useStaticQuery } from 'gatsby';
 import { LatLngTuple } from 'leaflet';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 
+import { norrisSquareCenter, startingMapZoom, maxZoom, tileSize, zoomOffset, defaultMapboxUsername, defaultMapboxStyle } from '../util/constants';
 import './Map.css';
 
 function Map (): JSX.Element {
@@ -12,8 +13,8 @@ function Map (): JSX.Element {
   const env: { [varName: string]: string|undefined } = {
     // Mapbox API
     mapboxToken: process.env.MAPBOX_TOKEN,
-    mapboxUsername: process.env.MAPBOX_USERNAME ?? "mapbox",
-    mapboxStyle: process.env.MAPBOX_STYLE ?? "streets-v11",
+    mapboxUsername: process.env.MAPBOX_USERNAME ?? defaultMapboxUsername,
+    mapboxStyle: process.env.MAPBOX_STYLE ?? defaultMapboxStyle,
   }
   
   const data = useStaticQuery(graphql`
@@ -36,20 +37,17 @@ function Map (): JSX.Element {
     }
   }).filter(tuple => typeof tuple != 'undefined');
 
-  // Center of Norris Square Park
-  const mapCenter: LatLngTuple = [39.98265, -75.1347];
-
   return (
-    <MapContainer center={mapCenter} zoom={16.5} scrollWheelZoom={true}>
+    <MapContainer center={norrisSquareCenter} zoom={startingMapZoom} scrollWheelZoom={true}>
       { // Use Mapbox if a token is found in .env, otherwise use OpenStreetMap
         !!env.mapboxToken
         ? <TileLayer
             url="https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}"
             attribution='Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery &copy; <a href="https://www.mapbox.com/">Mapbox</a>'
-            maxZoom={20}
+            maxZoom={maxZoom}
             id={`${env.mapboxUsername}/${env.mapboxStyle}`}
-            tileSize={512}
-            zoomOffset={-1}
+            tileSize={tileSize}
+            zoomOffset={zoomOffset}
             accessToken={env.mapboxToken}
           />
         : <TileLayer
