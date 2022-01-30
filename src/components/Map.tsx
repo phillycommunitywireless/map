@@ -12,9 +12,9 @@ function Map (): JSX.Element {
   // Read credentials and API params from .env
   const env: { [varName: string]: string|undefined } = {
     // Mapbox API
-    mapboxToken: process.env.MAPBOX_TOKEN,
-    mapboxUsername: process.env.MAPBOX_USERNAME ?? defaultMapboxUsername,
-    mapboxStyle: process.env.MAPBOX_STYLE ?? defaultMapboxStyle,
+    mapboxToken: process.env.GATSBY_MAPBOX_TOKEN,
+    mapboxUsername: process.env.GATSBY_MAPBOX_USERNAME ?? defaultMapboxUsername,
+    mapboxStyle: process.env.GATSBY_MAPBOX_STYLE ?? defaultMapboxStyle,
   }
   
   const data = useStaticQuery(graphql`
@@ -36,6 +36,8 @@ function Map (): JSX.Element {
       return [edge.node.lat, edge.node.long];
     }
   }).filter(tuple => typeof tuple != 'undefined');
+
+  console.log(env);
 
   return (
     <MapContainer center={norrisSquareCenter} zoom={startingMapZoom} scrollWheelZoom={true}>
