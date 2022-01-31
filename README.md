@@ -55,14 +55,16 @@ To use Mapbox tiles instead of the default (OpenStreetMap), you'll need to creat
 Add the following variable to your `.env`:
 
 ```
-MAPBOX_TOKEN=<your token>
+GATSBY_MAPBOX_TOKEN=<your token>
 ```
+
+The `GATSBY_` prefix is required to use environment variables in client-side code.
 
 ### Custom style
 
 If you want to use a [Mapbox style](https://docs.mapbox.com/studio-manual/reference/styles/) you created in Mapbox Studio, then also add: 
 
 ```
-MAPBOX_USERNAME=<your username>
-MAPBOX_STYLE=<your style id>
+GATSBY_MAPBOX_USERNAME=<your username>
+GATSBY_MAPBOX_STYLE=<your style id>
 ```
