@@ -13,6 +13,7 @@ export interface Node {
   // Information about device installed at this node
   device: Device,
   // Other nodes that are meshed with this one, either by a relation or passed nodeId
+  // Might be a single `uplink` node if we only have data on a single uplink device
   meshedWith: Node[]|(string[]|number[]),
 }
 
