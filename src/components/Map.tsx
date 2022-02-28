@@ -19,11 +19,25 @@ function Map (): JSX.Element {
   
   const data = useStaticQuery(graphql`
   {
-    allGoogleSpreadsheetCoordinates {
+    allGoogleSpreadsheetNodes {
       edges {
         node {
+          nodeId
+          label
+          nodeType
           lat
           long
+          direction
+          device
+        }
+      }
+    }
+    allGoogleSpreadsheetDevices {
+      edges {
+        node {
+          name
+          signalRangeAngle
+          signalRangeDistance
         }
       }
     }
