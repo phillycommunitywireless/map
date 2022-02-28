@@ -14,7 +14,7 @@ export interface Node {
   device: Device,
   // Other nodes that are meshed with this one, either by a relation or passed nodeId
   // Might be a single `uplink` node if we only have data on a single uplink device
-  meshedWith: Node[]|(string[]|number[]),
+  meshedWith?: Node[]|(string[]|number[]),
 }
 
 export interface Device {

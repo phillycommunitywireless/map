@@ -1,8 +1,7 @@
 import * as React from "react";
 import { graphql, useStaticQuery } from "gatsby";
 
-import { LatLngTuple } from "leaflet";
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import { MapContainer, TileLayer } from "react-leaflet";
 
 import {
   norrisSquareCenter,
@@ -13,7 +12,10 @@ import {
   defaultMapboxUsername,
   defaultMapboxStyle,
 } from "../util/constants";
+
 import "./Map.css";
+import { Node, Device } from "./Map.types";
+import NodeMarker from "./NodeMarker";
 
 function Map(): JSX.Element {
   // Read credentials and API params from .env
@@ -24,9 +26,9 @@ function Map(): JSX.Element {
     mapboxStyle: process.env.GATSBY_MAPBOX_STYLE ?? defaultMapboxStyle,
   };
 
-  let {
-    allGoogleSpreadsheetNodes: { edges: nodes },
-    allGoogleSpreadsheetDevices: { edges: devices },
+  const {
+    allGoogleSpreadsheetNodes: nodeGraph,
+    allGoogleSpreadsheetDevices: deviceGraph,
   } = useStaticQuery(graphql`
     {
       allGoogleSpreadsheetNodes {
@@ -39,6 +41,7 @@ function Map(): JSX.Element {
             long
             direction
             device
+            meshedWith
           }
         }
       }
@@ -54,11 +57,12 @@ function Map(): JSX.Element {
     }
   `);
 
-  nodes = nodes.map((node) => node.node);
-  devices = devices.map((device) => device.node);
-
-  console.log({ nodes });
-  console.log(devices.find((d) => d.name == "UAP-AC-M"));
+  const devices: Device[] = deviceGraph.edges.map((device) => device.node);
+  const nodes: Node[] = nodeGraph.edges.map((node) => {
+    const thisNode = node.node;
+    thisNode.device = devices.find((device) => device.name == thisNode.device);
+    return thisNode;
+  });
 
   return (
     <MapContainer
@@ -68,7 +72,7 @@ function Map(): JSX.Element {
     >
       {
         // Use Mapbox if a token is found in .env, otherwise use OpenStreetMap
-        !!env.mapboxToken ? (
+        env.mapboxToken ? (
           <TileLayer
             url="https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}"
             attribution='Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery &copy; <a href="https://www.mapbox.com/">Mapbox</a>'
@@ -87,25 +91,9 @@ function Map(): JSX.Element {
       }
       {
         // Render all markers
-        nodes.map((node) => {
-          const pos: LatLngTuple = [node.lat, node.long];
-          const device = devices.find((device) => device.name == node.device);
-          return (
-            <Marker key={node.nodeId} position={pos}>
-              <Popup>
-                <h1>
-                  Node {node.nodeId} ({node.nodeType.toLowerCase()} node)
-                </h1>
-                <h2>Device</h2>
-                <p>
-                  Name: {device.name} <br />
-                  Range (distance): {device.signalRangeDistance}ft <br />
-                  Range (angle): {device.signalRangeAngle}° <br />
-                </p>
-              </Popup>
-            </Marker>
-          );
-        })
+        nodes.map((node) => (
+          <NodeMarker node={node} />
+        ))
       }
     </MapContainer>
   );
