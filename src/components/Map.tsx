@@ -45,7 +45,7 @@ function Map (): JSX.Element {
   `)
 
   // Positions of markers
-  const markerPositions: LatLngTuple[] = data.allGoogleSpreadsheetCoordinates.edges.map(edge => {
+  const markerPositions: LatLngTuple[] = data.allGoogleSpreadsheetNodes.edges.map(edge => {
     if (edge.node.lat && edge.node.long) {
       return [edge.node.lat, edge.node.long];
     }
